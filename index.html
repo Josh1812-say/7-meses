@@ -4,192 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>7 Meses</title>
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #1c1c1c; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; }
 
-        body {
-            background-color: #1c1c1c; 
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            padding: 10px;
+        .contenedor { 
+            width: 100%; max-width: 500px; height: 85vh; 
+            position: relative; overflow: hidden;
         }
-
-        .escenario3d { 
-            width: 100%; 
-            max-width: 600px; 
-            min-height: 450px; 
-            height: 80vh; 
-            perspective: 2000px;
-            transform-origin: center center;
-        }
-
-        /* AJUSTES PARA CELULARES - SIN CAMBIAR ESTRUCTURA */
-        @media (max-width: 600px) {
-            .escenario3d { transform: scale(1); height: 90vh; }
-            
-            .diapositiva { 
-                overflow-y: auto !important; 
-                padding: 15px !important; 
-            }
-            
-            /* Ajustes para que la imagen se vea solo el dibujo y no el recuadro blanco */
-            .imagen-boceto, .dibujo-secundario, .dibujo-tercero {
-                max-width: 100% !important;
-                height: auto !important;
-                max-height: 140px; 
-                object-fit: contain !important; /* Muestra el dibujo completo sin recortar */
-                border: none !important; /* Quita el borde si no quieres recuadro blanco */
-            }
-
-            /* Mover botones para que no tapen texto al hacer scroll */
-            .esquina-pasar, .esquina-volver {
-                position: sticky !important;
-                margin-top: 10px !important;
-            }
-        }
-
-        .presentacion { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
-
-        .portada {
-            position: absolute; width: 100%; height: 100%; background: #ffffff;
-            border: 3px solid #2b2b2b;
-            border-radius: 255px 20px 225px 30px / 20px 225px 30px 255px;
-            z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-        
-        .imagen-portada { width: 150px; margin-bottom: 10px; }
-        
-        .btn-flecha {
-            font-size: 3rem; cursor: pointer; margin-top: 10px;
-            transition: transform 0.3s ease; display: inline-block;
-        }
-        .btn-flecha:hover { transform: translateY(5px); }
-        
-        .esconder-portada { opacity: 0; transform: translateY(-20px); pointer-events: none; }
 
         .diapositiva {
-            position: absolute; width: 100%; height: 100%; padding: 35px 40px; background: #ffffff;
-            border: 3px solid #2b2b2b;
-            border-radius: 255px 20px 225px 30px / 20px 225px 30px 255px;
-            display: flex; box-shadow: 8px 12px 25px rgba(0, 0, 0, 0.45);
-            transform-origin: left center; 
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            backface-visibility: hidden;
+            position: absolute; width: 100%; height: 100%;
+            background: #ffffff; padding: 25px; 
+            border-radius: 40px; /* Simplificado para mejor lectura */
+            border: 3px solid #2b2b2b; box-shadow: 8px 12px 25px rgba(0, 0, 0, 0.45);
+            display: none; flex-direction: column; 
+            text-align: center; 
+            overflow-y: auto; /* IMPORTANTE: Esto permite hacer scroll */
         }
 
-        .d1 { z-index: 4; transform: rotateY(0deg); justify-content: space-between; align-items: center; flex-direction: column; }
-        .d2 { z-index: 3; transform: rotateY(0deg); flex-direction: row; justify-content: space-between; align-items: center; }
-        .d3 { z-index: 2; transform: rotateY(0deg); justify-content: space-between; align-items: center; flex-direction: column; }
-        .d4 { z-index: 1; transform: rotateY(0deg); flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .pasar-hoja { transform: rotateY(-180deg); }
-        
-        h1, h2 { font-size: 1.5rem; font-weight: 800; color: #000; margin-bottom: 10px; }
-        p { color: #000; font-weight: 500; line-height: 1.4; text-align: justify; font-size: 0.95rem; }
-        
-        .fecha-p4 { position: absolute; top: 20px; left: 20px; font-weight: 800; font-size: 1.1rem; }
-        .cuerpo-4 { margin-top: -10px; }
-        .firma-container { position: absolute; bottom: 40px; right: 40px; display: flex; flex-direction: column; align-items: flex-end; }
-        .firma-texto { font-weight: 700; font-size: 1.2rem; margin-bottom: 2px; }
-        .firma-linea { width: 130px; height: 2px; background: #000; }
-        .firma-sublinea { width: 90px; height: 1.5px; background: #000; margin-top: 2px; }
-        .columna-texto { width: 58%; display: flex; flex-direction: column; justify-content: center; }
-        .columna-dibujo { width: 38%; display: flex; justify-content: center; align-items: center; }
-        
-        .imagen-boceto { width: 200px; height: 120px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 5px; }
-        .dibujo-secundario { width: 150px; height: 150px; object-fit: cover; border: 3px solid #000; border-radius: 16px; }
-        .dibujo-tercero { width: 150px; height: 150px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 5px; }
-        
-        .esquina-pasar, .esquina-volver {
-            position: absolute; bottom: 15px; font-size: 1.5rem; font-weight: 800; color: #000;
-            cursor: pointer; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
-            border: 2px dashed #000; background: #fff; z-index: 10;
+        .diapositiva.activa { display: flex; animation: aparecer 0.6s ease; }
+
+        @keyframes aparecer { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        h1, h2 { font-size: 1.4rem; margin-bottom: 10px; flex-shrink: 0; }
+        p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; flex-grow: 1; }
+        img { max-width: 150px; border: 3px solid #000; border-radius: 16px; margin: 10px auto; flex-shrink: 0; }
+
+        .btn-contenedor { display: flex; justify-content: center; gap: 10px; flex-shrink: 0; padding-bottom: 10px; }
+        .btn-nav {
+            cursor: pointer; padding: 10px 25px;
+            background: #fff; border: 2px dashed #000; font-weight: 800; border-radius: 10px;
         }
-        .esquina-pasar { right: 15px; border-radius: 12px 4px 15px 4px / 4px 15px 4px 12px; box-shadow: 2px 2px 0px #000; }
-        .esquina-volver { left: 15px; border-radius: 4px 12px 4px 15px / 12px 4px 15px 4px; box-shadow: -2px 2px 0px #000; }
     </style>
 </head>
 <body>
-    <div class="escenario3d">
-        <div class="presentacion">
-            <section class="portada" id="portada">
-                <img src="dibujo 0.jpg" class="imagen-portada">
-                <h1>Detalle Especial</h1>
-                <p>Para mi persona favorita</p>
-                <div class="btn-flecha" onclick="abrirPresentacion()">⬇</div>
-            </section>
-            
-            <section class="diapositiva d4" id="capa4">
-                <div class="fecha-p4">18/07/26</div>
-                <div class="cuerpo-4">
-                    <h1>Para ti</h1>
-                    <p style="text-align: center; font-style: italic;">En fin, gracias por todo mami, gracias por permitirme hacerte este detallito, perdón por lo pequeño que es, eso fue todito, te amo Saidy, te amo muchísimo mami.</p>
-                </div>
-                <div class="firma-container">
-                    <div class="firma-texto">De: Joshua Mendoza</div>
-                    <div class="firma-linea"></div>
-                    <div class="firma-sublinea"></div>
-                </div>
-                <div class="esquina-volver" onclick="volverPagina4()">←</div>
-            </section>
 
-            <section class="diapositiva d3" id="capa3">
-                <div style="text-align: center; margin-top: 10px;">
-                    <h1>Nuestra historia</h1>
-                    <p>Pasar de vernos un día en una cancha a que literalmente pasaras a mi cuarto y te acostaras en mi cama, increíble. Nunca pensé hacer eso, con nadie, y llegaste tú, superando mis expectativas por muchísimo. Te amo amor, contigo quiero durar toda la vida. Sé que a veces cometemos errores, pero aún así nunca nunca nunca nunca terminamos mal, siempre aprendemos de ellos y seguimos adelante. Te amo mi cachetona hermosa.</p>
-                </div>
-                <img src="dibujo 3.jpg" class="dibujo-tercero">
-                <div class="esquina-volver" onclick="volverPagina3()">←</div>
-                <div class="esquina-pasar" onclick="pasarPagina4()">→</div>
-            </section>
+    <div class="contenedor">
+        <div id="p0" class="diapositiva activa">
+            <img src="dibujo 0.jpg">
+            <h1>Detalle Especial</h1>
+            <p>Para mi persona favorita</p>
+            <button class="btn-nav" onclick="irA(1); reproducirMusica();">⬇</button>
+        </div>
 
-            <section class="diapositiva d2" id="capa2">
-                <div class="columna-texto">
-                    <h1>Gracias por todo</h1>
-                    <p>Gracias a ti soy el novio más feliz del mundo. Si pudiera escoger a quién tener a mi lado para toda la vida, te elegiría a ti una y mil veces. Hablamos para ser amigos, sin otra cosa en mente, y aun así hoy somos una pareja. Gracias por hacerme sentir el mejor y gracias por quererme. Antes de ti mi vida era oscura, pero llegaste tú y le diste color. Cada "Buenosh diasshh" y cada "te amo" me hace ver que tengo una persona que me quiere a pesar de todos mis defectos.</p>
-                </div>
-                <div class="columna-dibujo">
-                    <img src="dibujo 2.jpg" class="dibujo-secundario">
-                </div>
-                <div class="esquina-volver" onclick="volverPagina2()">←</div>
-                <div class="esquina-pasar" onclick="pasarPagina3()">→</div>
-            </section>
+        <div id="p1" class="diapositiva">
+            <h2>Nuestros 7 Meses</h2>
+            <p>Hoy cumplimos nuestros primeros 7 meses de noviazgo. Parece que fue ayer cuando empezamos a hablar por Facebook y nos hablábamos súper feo, literalmente hasta nos dejamos de hablar como 5 veces, pero bueno, lo que es para uno tarde o temprano llega, ¿no? Algo así pasó. Al final de todas las peleas y de todos los "no quiero ser novio de una amiga de mi hermana" pudimos encontrar una bonita relación. A pesar de todas esas peleas, peleas por tonterías, peleas serias, innecesarias, peleas con aprendizaje y otras que eran literalmente para terminar, seguimos juntos y mejor que nunca.</p>
+            <img src="dibujo 1.jpg">
+            <div class="btn-contenedor"><button class="btn-nav" onclick="irA(2)">→</button></div>
+        </div>
 
-            <section class="diapositiva d1" id="capa1">
-                <div style="text-align: center;">
-                    <h2>Nuestros 7 Meses</h2>
-                    <p>Hoy cumplimos nuestros primeros 7 meses de noviazgo. Parece que fue ayer cuando empezamos a hablar por Facebook y nos hablábamos súper feo, literalmente hasta nos dejamos de hablar como 5 veces, pero bueno, lo que es para uno tarde o temprano llega, ¿no? Algo así pasó. Al final de todas las peleas y de todos los "no quiero ser novio de una amiga de mi hermana" pudimos encontrar una bonita relación. A pesar de todas esas peleas, peleas por tonterías, peleas serias, innecesarias, peleas con aprendizaje y otras que eran literalmente para terminar, seguimos juntos y mejor que nunca.</p>
-                </div>
-                <img src="dibujo 1.jpg" class="imagen-boceto">
-                <div class="esquina-pasar" onclick="pasarPagina2()">→</div>
-            </section>
+        <div id="p2" class="diapositiva">
+            <h1>Gracias por todo</h1>
+            <p>Gracias a ti soy el novio más feliz del mundo. Si pudiera escoger a quién tener a mi lado para toda la vida, te elegiría a ti una y mil veces. Hablamos para ser amigos, sin otra cosa en mente, y aun así hoy somos una pareja. Gracias por hacerme sentir el mejor y gracias por quererme. Antes de ti mi vida era oscura, pero llegaste tú y le diste color. Cada "Buenosh diasshh" y cada "te amo" me hace ver que tengo una persona que me quiere a pesar de todos mis defectos.</p>
+            <img src="dibujo 2.jpg">
+            <div class="btn-contenedor">
+                <button class="btn-nav" onclick="irA(1)">←</button>
+                <button class="btn-nav" onclick="irA(3)">→</button>
+            </div>
+        </div>
+
+        <div id="p3" class="diapositiva">
+            <h1>Nuestra historia</h1>
+            <p>Pasar de vernos un día en una cancha a que literalmente pasaras a mi cuarto y te acostaras en mi cama, increíble. Nunca pensé hacer eso, con nadie, y llegaste tú, superando mis expectativas por muchísimo. Te amo amor, contigo quiero durar toda la vida. Sé que a veces cometemos errores, pero aún así nunca nunca nunca nunca terminamos mal, siempre aprendemos de ellos y seguimos adelante. Te amo mi cachetona hermosa.</p>
+            <img src="dibujo 3.jpg">
+            <div class="btn-contenedor">
+                <button class="btn-nav" onclick="irA(2)">←</button>
+                <button class="btn-nav" onclick="irA(4)">→</button>
+            </div>
+        </div>
+
+        <div id="p4" class="diapositiva">
+            <h1>Para ti</h1>
+            <p style="font-style: italic;">En fin, gracias por todo mami, gracias por permitirme hacerte este detallito, perdón por lo pequeño que es, eso fue todito, te amo Saidy, te amo muchísimo mami.</p>
+            <p><b>De: Joshua Mendoza</b><br>18/07/26</p>
+            <div class="btn-contenedor"><button class="btn-nav" onclick="irA(3)">←</button></div>
         </div>
     </div>
 
     <audio id="musicaFondo" src="Rises the moon.mp3" loop></audio>
 
     <script>
-        function abrirPresentacion() {
-            const portada = document.getElementById('portada');
-            const audio = document.getElementById('musicaFondo');
-            portada.classList.add('esconder-portada');
-            audio.play().catch(error => console.log("Se requiere interacción del usuario para reproducir audio."));
+        function irA(n) {
+            document.querySelectorAll('.diapositiva').forEach(d => d.classList.remove('activa'));
+            document.getElementById('p' + n).classList.add('activa');
         }
-
-        const capa1 = document.getElementById('capa1');
-        const capa2 = document.getElementById('capa2');
-        const capa3 = document.getElementById('capa3');
-        
-        function pasarPagina2() { capa1.classList.add('pasar-hoja'); }
-        function volverPagina2() { capa1.classList.remove('pasar-hoja'); }
-        function pasarPagina3() { capa2.classList.add('pasar-hoja'); }
-        function volverPagina3() { capa2.classList.remove('pasar-hoja'); }
-        function pasarPagina4() { capa3.classList.add('pasar-hoja'); }
-        function volverPagina4() { capa3.classList.remove('pasar-hoja'); }
+        function reproducirMusica() {
+            const audio = document.getElementById('musicaFondo');
+            audio.play().catch(e => console.log("Esperando interacción"));
+        }
     </script>
 </body>
 </html>
