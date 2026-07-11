@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno de Bocetos - Presentación</title>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background-color: #1c1c1c; 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        /* Contenedor responsivo */
+        .escenario3d { 
+            width: 100%; 
+            max-width: 600px; 
+            aspect-ratio: 4/3; 
+            perspective: 2000px;
+        }
+
+        .presentacion { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+
+        /* Estilos de la Portada */
+        .portada {
+            position: absolute; width: 100%; height: 100%; background: #ffffff;
+            border: 3px solid #2b2b2b;
+            border-radius: 40px;
+            z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+        
+        .imagen-portada { width: 150px; margin-bottom: 10px; }
+        
+        .btn-flecha {
+            font-size: 3rem; cursor: pointer; margin-top: 10px;
+            transition: transform 0.3s ease; display: inline-block;
+        }
+        .btn-flecha:hover { transform: translateY(5px); }
+        
+        .esconder-portada { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+
+        /* Estilos generales de hojas */
+        .diapositiva {
+            position: absolute; width: 100%; height: 100%; padding: 35px 40px; background: #ffffff;
+            border: 3px solid #2b2b2b;
+            border-radius: 40px;
+            display: flex; box-shadow: 8px 12px 25px rgba(0, 0, 0, 0.45);
+            transform-origin: left center; 
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backface-visibility: hidden;
+        }
+
+        /* Adaptación para celular */
+        @media (max-width: 600px) {
+            .diapositiva, .portada { padding: 20px; border-radius: 30px; }
+            h1, h2 { font-size: 1.3rem; }
+            p { font-size: 0.85rem; }
+            .imagen-portada { width: 100px; }
+        }
+
+        .d1 { z-index: 4; transform: rotateY(0deg); justify-content: space-between; align-items: center; flex-direction: column; }
+        .d2 { z-index: 3; transform: rotateY(0deg); flex-direction: row; justify-content: space-between; align-items: center; }
+        .d3 { z-index: 2; transform: rotateY(0deg); justify-content: space-between; align-items: center; flex-direction: column; }
+        .d4 { z-index: 1; transform: rotateY(0deg); flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .pasar-hoja { transform: rotateY(-180deg); }
+        
+        h1, h2 { font-weight: 800; color: #000; margin-bottom: 10px; }
+        p { color: #000; font-weight: 500; line-height: 1.4; text-align: justify; }
+        .fecha-p4 { position: absolute; top: 35px; left: 40px; font-weight: 800; font-size: 1.1rem; }
+        .cuerpo-4 { margin-top: -30px; }
+        .firma-container { position: absolute; bottom: 40px; right: 40px; display: flex; flex-direction: column; align-items: flex-end; }
+        .firma-texto { font-weight: 700; font-size: 1.2rem; margin-bottom: 2px; }
+        .firma-linea { width: 130px; height: 2px; background: #000; }
+        .firma-sublinea { width: 90px; height: 1.5px; background: #000; margin-top: 2px; }
+        .columna-texto { width: 58%; display: flex; flex-direction: column; justify-content: center; }
+        .columna-dibujo { width: 38%; display: flex; justify-content: center; align-items: center; }
+        .imagen-boceto { width: 240px; height: 130px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; margin-bottom: 25px; }
+        .dibujo-secundario { width: 170px; height: 170px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; }
+        .dibujo-tercero { width: 170px; height: 170px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; margin-bottom: 5px; }
+        
+        .esquina-pasar, .esquina-volver {
+            position: absolute; bottom: 15px; font-size: 1.5rem; font-weight: 800; color: #000;
+            cursor: pointer; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            border: 2px dashed #000; background: #fff; z-index: 10;
+        }
+        .esquina-pasar { right: 15px; border-radius: 12px 4px 15px 4px / 4px 15px 4px 12px; box-shadow: 2px 2px 0px #000; }
+        .esquina-volver { left: 15px; border-radius: 4px 12px 4px 15px / 12px 4px 15px 4px; box-shadow: -2px 2px 0px #000; }
+    </style>
+</head>
+<body>
+
+    <div class="escenario3d">
+        <div class="presentacion">
+            <section class="portada" id="portada">
+                <img src="dibujo 0.jpg" class="imagen-portada">
+                <h1>Detalle Especial</h1>
+                <p>Para mi persona favorita</p>
+                <div class="btn-flecha" onclick="abrirPresentacion()">⬇</div>
+            </section>
+            
+            <section class="diapositiva d4" id="capa4">
+                <div class="fecha-p4">18/07/26</div>
+                <div class="cuerpo-4">
+                    <h1>Para ti</h1>
+                    <p style="text-align: center; font-style: italic; max-width: 400px;">En fin, gracias por todo mami, gracias por permitirme hacerte este detallito, perdón por lo pequeño que es, eso fue todito, te amo Saidy, te amo muchísimo mami.</p>
+                </div>
+                <div class="firma-container">
+                    <div class="firma-texto">De: Joshua Mendoza</div>
+                    <div class="firma-linea"></div>
+                    <div class="firma-sublinea"></div>
+                </div>
+                <div class="esquina-volver" onclick="volverPagina4()">←</div>
+            </section>
+
+            <section class="diapositiva d3" id="capa3">
+                <div style="text-align: center; margin-top: 10px;">
+                    <h1>Nuestra historia</h1>
+                    <p style="text-align: center;">Pasar de vernos un día en una cancha a que literalmente pasaras a mi cuarto y te acostaras en mi cama, increíble. Nunca pensé hacer eso, con nadie, y llegaste tú, superando mis expectativas por muchísimo. Te amo amor, contigo quiero durar toda la vida. Sé que a veces cometemos errores, pero aún así nunca nunca nunca nunca terminamos mal, siempre aprendemos de ellos y seguimos adelante. Te amo mi cachetona hermosa.</p>
+                </div>
+                <img src="dibujo 3.jpg" class="dibujo-tercero">
+                <div class="esquina-volver" onclick="volverPagina3()">←</div>
+                <div class="esquina-pasar" onclick="pasarPagina4()">→</div>
+            </section>
+
+            <section class="diapositiva d2" id="capa2">
+                <div class="columna-texto">
+                    <h1>Gracias por todo</h1>
+                    <p>Gracias a ti soy el novio más feliz del mundo. Si pudiera escoger a quién tener a mi lado para toda la vida, te elegiría a ti una y mil veces. Hablamos para ser amigos, sin otra cosa en mente, y aun así hoy somos una pareja. Gracias por hacerme sentir el mejor y gracias por quererme. Antes de ti mi vida era oscura, pero llegaste tú y le diste color. Cada "Buenosh diasshh" y cada "te amo" me hace ver que tengo una persona que me quiere a pesar de todos mis defectos.</p>
+                </div>
+                <div class="columna-dibujo">
+                    <img src="dibujo 2.jpg" class="dibujo-secundario">
+                </div>
+                <div class="esquina-volver" onclick="volverPagina2()">←</div>
+                <div class="esquina-pasar" onclick="pasarPagina3()">→</div>
+            </section>
+
+            <section class="diapositiva d1" id="capa1">
+                <div style="text-align: center;">
+                    <h2>Nuestros 7 Meses</h2>
+                    <p>Hoy cumplimos nuestros primeros 7 meses de noviazgo. Parece que fue ayer cuando empezamos a hablar por Facebook y nos hablábamos súper feo, literalmente hasta nos dejamos de hablar como 5 veces, pero bueno, lo que es para uno tarde o temprano llega, ¿no? Algo así pasó. Al final de todas las peleas y de todos los "no quiero ser novio de una amiga de mi hermana" pudimos encontrar una bonita relación. A pesar de todas esas peleas, peleas por tonterías, peleas serias, innecesarias, peleas con aprendizaje y otras que eran literalmente para terminar, seguimos juntos y mejor que nunca.</p>
+                </div>
+                <img src="dibujo 1.jpg" class="imagen-boceto">
+                <div class="esquina-pasar" onclick="pasarPagina2()">→</div>
+            </section>
+        </div>
+    </div>
+
+    <audio id="musicaFondo" src="Rises the moon.mp3" loop></audio>
+
+    <script>
+        function abrirPresentacion() {
+            const portada = document.getElementById('portada');
+            const audio = document.getElementById('musicaFondo');
+            portada.classList.add('esconder-portada');
+            audio.play().catch(error => console.log("Interacción necesaria para audio."));
+        }
+
+        const capa1 = document.getElementById('capa1');
+        const capa2 = document.getElementById('capa2');
+        const capa3 = document.getElementById('capa3');
+        
+        function pasarPagina2() { capa1.classList.add('pasar-hoja'); }
+        function volverPagina2() { capa1.classList.remove('pasar-hoja'); }
+        function pasarPagina3() { capa2.classList.add('pasar-hoja'); }
+        function volverPagina3() { capa2.classList.remove('pasar-hoja'); }
+        function pasarPagina4() { capa3.classList.add('pasar-hoja'); }
+        function volverPagina4() { capa3.classList.remove('pasar-hoja'); }
+    </script>
+</body>
+</html>
