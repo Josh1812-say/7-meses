@@ -21,26 +21,34 @@
         .escenario3d { 
             width: 100%; 
             max-width: 600px; 
-            /* Cambiamos height fija por min-height para que crezca si el texto es mucho */
             min-height: 450px; 
             height: 80vh; 
             perspective: 2000px;
             transform-origin: center center;
         }
 
-        /* AJUSTES PARA CELULARES */
+        /* AJUSTES PARA CELULARES - SIN CAMBIAR ESTRUCTURA */
         @media (max-width: 600px) {
             .escenario3d { transform: scale(1); height: 90vh; }
             
             .diapositiva { 
                 overflow-y: auto !important; 
-                padding: 20px !important; /* Reducimos padding para ganar espacio */
+                padding: 15px !important; 
             }
             
+            /* Ajustes para que la imagen se vea solo el dibujo y no el recuadro blanco */
             .imagen-boceto, .dibujo-secundario, .dibujo-tercero {
                 max-width: 100% !important;
                 height: auto !important;
-                max-height: 150px; /* Limitamos altura de fotos en móvil */
+                max-height: 140px; 
+                object-fit: contain !important; /* Muestra el dibujo completo sin recortar */
+                border: none !important; /* Quita el borde si no quieres recuadro blanco */
+            }
+
+            /* Mover botones para que no tapen texto al hacer scroll */
+            .esquina-pasar, .esquina-volver {
+                position: sticky !important;
+                margin-top: 10px !important;
             }
         }
 
