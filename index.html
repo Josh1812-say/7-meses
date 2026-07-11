@@ -28,18 +28,16 @@
 
         /* AJUSTES EXCLUSIVOS PARA CELULARES */
         @media (max-width: 600px) {
-            .escenario3d { transform: scale(0.85); }
-            
-            /* Permite scroll vertical si el contenido es largo y añade margen inferior */
-            .diapositiva { 
-                overflow-y: auto !important; 
-                padding-bottom: 80px !important; 
+            /* Tarjeta grande que ocupa casi toda la pantalla */
+            .escenario3d { 
+                height: 90vh; 
+                transform: none; 
             }
             
-            /* Asegura que las imágenes se ajusten al ancho de la pantalla */
-            .imagen-boceto, .dibujo-secundario, .dibujo-tercero {
-                max-width: 100% !important;
-                height: auto !important;
+            .diapositiva, .portada {
+                border-radius: 30px !important;
+                padding: 30px !important;
+                overflow-y: auto !important;
             }
         }
 
