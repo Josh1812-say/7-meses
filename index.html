@@ -23,13 +23,15 @@
             width: 100%; 
             max-width: 600px; 
             height: 450px; 
-            perspective: 2000px; 
+            perspective: 2000px;
+            /* Se añade transform-origin para que en móvil no se corte */
+            transform-origin: center center;
         }
 
         /* Si la pantalla es pequeña, escalamos el contenido */
         @media (max-width: 600px) {
             .escenario3d { 
-                transform: scale(0.85); /* Ajuste de escala para que quepa en móviles */
+                transform: scale(0.85);
             }
         }
         /* ---------------------------- */
@@ -80,9 +82,9 @@
         .firma-sublinea { width: 90px; height: 1.5px; background: #000; margin-top: 2px; }
         .columna-texto { width: 58%; display: flex; flex-direction: column; justify-content: center; }
         .columna-dibujo { width: 38%; display: flex; justify-content: center; align-items: center; }
-        .imagen-boceto { width: 240px; height: 130px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; margin-bottom: 25px; }
-        .dibujo-secundario { width: 170px; height: 170px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; }
-        .dibujo-tercero { width: 170px; height: 170px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; margin-bottom: 5px; }
+        .imagen-boceto { width: 240px; height: 130px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 25px; }
+        .dibujo-secundario { width: 170px; height: 170px; object-fit: cover; border: 3px solid #000; border-radius: 16px; }
+        .dibujo-tercero { width: 170px; height: 170px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 5px; }
         .esquina-pasar, .esquina-volver {
             position: absolute; bottom: 15px; font-size: 1.5rem; font-weight: 800; color: #000;
             cursor: pointer; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
