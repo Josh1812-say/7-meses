@@ -21,23 +21,26 @@
         .escenario3d { 
             width: 100%; 
             max-width: 600px; 
-            height: 450px; 
+            /* Cambiamos height fija por min-height para que crezca si el texto es mucho */
+            min-height: 450px; 
+            height: 80vh; 
             perspective: 2000px;
             transform-origin: center center;
         }
 
-        /* AJUSTES EXCLUSIVOS PARA CELULARES */
+        /* AJUSTES PARA CELULARES */
         @media (max-width: 600px) {
-            /* Tarjeta grande que ocupa casi toda la pantalla */
-            .escenario3d { 
-                height: 90vh; 
-                transform: none; 
+            .escenario3d { transform: scale(1); height: 90vh; }
+            
+            .diapositiva { 
+                overflow-y: auto !important; 
+                padding: 20px !important; /* Reducimos padding para ganar espacio */
             }
             
-            .diapositiva, .portada {
-                border-radius: 30px !important;
-                padding: 30px !important;
-                overflow-y: auto !important;
+            .imagen-boceto, .dibujo-secundario, .dibujo-tercero {
+                max-width: 100% !important;
+                height: auto !important;
+                max-height: 150px; /* Limitamos altura de fotos en móvil */
             }
         }
 
@@ -77,11 +80,11 @@
         .d4 { z-index: 1; transform: rotateY(0deg); flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .pasar-hoja { transform: rotateY(-180deg); }
         
-        h1, h2 { font-size: 1.8rem; font-weight: 800; color: #000; margin-bottom: 10px; }
-        p { color: #000; font-weight: 500; line-height: 1.4; text-align: justify; }
+        h1, h2 { font-size: 1.5rem; font-weight: 800; color: #000; margin-bottom: 10px; }
+        p { color: #000; font-weight: 500; line-height: 1.4; text-align: justify; font-size: 0.95rem; }
         
-        .fecha-p4 { position: absolute; top: 35px; left: 40px; font-weight: 800; font-size: 1.1rem; }
-        .cuerpo-4 { margin-top: -30px; }
+        .fecha-p4 { position: absolute; top: 20px; left: 20px; font-weight: 800; font-size: 1.1rem; }
+        .cuerpo-4 { margin-top: -10px; }
         .firma-container { position: absolute; bottom: 40px; right: 40px; display: flex; flex-direction: column; align-items: flex-end; }
         .firma-texto { font-weight: 700; font-size: 1.2rem; margin-bottom: 2px; }
         .firma-linea { width: 130px; height: 2px; background: #000; }
@@ -89,9 +92,9 @@
         .columna-texto { width: 58%; display: flex; flex-direction: column; justify-content: center; }
         .columna-dibujo { width: 38%; display: flex; justify-content: center; align-items: center; }
         
-        .imagen-boceto { width: 240px; height: 130px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 25px; }
-        .dibujo-secundario { width: 170px; height: 170px; object-fit: cover; border: 3px solid #000; border-radius: 16px; }
-        .dibujo-tercero { width: 170px; height: 170px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 5px; }
+        .imagen-boceto { width: 200px; height: 120px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 5px; }
+        .dibujo-secundario { width: 150px; height: 150px; object-fit: cover; border: 3px solid #000; border-radius: 16px; }
+        .dibujo-tercero { width: 150px; height: 150px; object-fit: cover; border: 3px solid #000; border-radius: 16px; margin-bottom: 5px; }
         
         .esquina-pasar, .esquina-volver {
             position: absolute; bottom: 15px; font-size: 1.5rem; font-weight: 800; color: #000;
@@ -116,7 +119,7 @@
                 <div class="fecha-p4">18/07/26</div>
                 <div class="cuerpo-4">
                     <h1>Para ti</h1>
-                    <p style="text-align: center; font-style: italic; max-width: 400px;">En fin, gracias por todo mami, gracias por permitirme hacerte este detallito, perdón por lo pequeño que es, eso fue todito, te amo Saidy, te amo muchísimo mami.</p>
+                    <p style="text-align: center; font-style: italic;">En fin, gracias por todo mami, gracias por permitirme hacerte este detallito, perdón por lo pequeño que es, eso fue todito, te amo Saidy, te amo muchísimo mami.</p>
                 </div>
                 <div class="firma-container">
                     <div class="firma-texto">De: Joshua Mendoza</div>
@@ -129,7 +132,7 @@
             <section class="diapositiva d3" id="capa3">
                 <div style="text-align: center; margin-top: 10px;">
                     <h1>Nuestra historia</h1>
-                    <p style="text-align: center;">Pasar de vernos un día en una cancha a que literalmente pasaras a mi cuarto y te acostaras en mi cama, increíble. Nunca pensé hacer eso, con nadie, y llegaste tú, superando mis expectativas por muchísimo. Te amo amor, contigo quiero durar toda la vida. Sé que a veces cometemos errores, pero aún así nunca nunca nunca nunca terminamos mal, siempre aprendemos de ellos y seguimos adelante. Te amo mi cachetona hermosa.</p>
+                    <p>Pasar de vernos un día en una cancha a que literalmente pasaras a mi cuarto y te acostaras en mi cama, increíble. Nunca pensé hacer eso, con nadie, y llegaste tú, superando mis expectativas por muchísimo. Te amo amor, contigo quiero durar toda la vida. Sé que a veces cometemos errores, pero aún así nunca nunca nunca nunca terminamos mal, siempre aprendemos de ellos y seguimos adelante. Te amo mi cachetona hermosa.</p>
                 </div>
                 <img src="dibujo 3.jpg" class="dibujo-tercero">
                 <div class="esquina-volver" onclick="volverPagina3()">←</div>
