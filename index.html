@@ -10,28 +10,21 @@
 
         body {
             background-color: #1c1c1c; 
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            overflow: hidden;
         }
 
-        /* Contenedor responsivo */
-        .escenario3d { 
-            width: 100%; 
-            max-width: 600px; 
-            aspect-ratio: 4/3; 
-            perspective: 2000px;
-        }
-
+        .escenario3d { width: 600px; height: 450px; perspective: 2000px; }
         .presentacion { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
 
         /* Estilos de la Portada */
         .portada {
             position: absolute; width: 100%; height: 100%; background: #ffffff;
             border: 3px solid #2b2b2b;
-            border-radius: 40px;
+            border-radius: 255px 20px 225px 30px / 20px 225px 30px 255px;
             z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: opacity 1.2s ease, transform 1.2s ease;
         }
@@ -44,25 +37,18 @@
         }
         .btn-flecha:hover { transform: translateY(5px); }
         
+        /* Clase para la transición fluida */
         .esconder-portada { opacity: 0; transform: translateY(-20px); pointer-events: none; }
 
-        /* Estilos generales de hojas */
+        /* El resto de estilos se mantiene igual */
         .diapositiva {
             position: absolute; width: 100%; height: 100%; padding: 35px 40px; background: #ffffff;
             border: 3px solid #2b2b2b;
-            border-radius: 40px;
+            border-radius: 255px 20px 225px 30px / 20px 225px 30px 255px;
             display: flex; box-shadow: 8px 12px 25px rgba(0, 0, 0, 0.45);
             transform-origin: left center; 
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             backface-visibility: hidden;
-        }
-
-        /* Adaptación para celular */
-        @media (max-width: 600px) {
-            .diapositiva, .portada { padding: 20px; border-radius: 30px; }
-            h1, h2 { font-size: 1.3rem; }
-            p { font-size: 0.85rem; }
-            .imagen-portada { width: 100px; }
         }
 
         .d1 { z-index: 4; transform: rotateY(0deg); justify-content: space-between; align-items: center; flex-direction: column; }
@@ -70,8 +56,7 @@
         .d3 { z-index: 2; transform: rotateY(0deg); justify-content: space-between; align-items: center; flex-direction: column; }
         .d4 { z-index: 1; transform: rotateY(0deg); flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .pasar-hoja { transform: rotateY(-180deg); }
-        
-        h1, h2 { font-weight: 800; color: #000; margin-bottom: 10px; }
+        h1, h2 { font-size: 1.8rem; font-weight: 800; color: #000; margin-bottom: 10px; }
         p { color: #000; font-weight: 500; line-height: 1.4; text-align: justify; }
         .fecha-p4 { position: absolute; top: 35px; left: 40px; font-weight: 800; font-size: 1.1rem; }
         .cuerpo-4 { margin-top: -30px; }
@@ -84,7 +69,6 @@
         .imagen-boceto { width: 240px; height: 130px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; margin-bottom: 25px; }
         .dibujo-secundario { width: 170px; height: 170px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; }
         .dibujo-tercero { width: 170px; height: 170px; object-fit: cover; border: 3.5px solid #000; border-radius: 16px; margin-bottom: 5px; }
-        
         .esquina-pasar, .esquina-volver {
             position: absolute; bottom: 15px; font-size: 1.5rem; font-weight: 800; color: #000;
             cursor: pointer; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
@@ -98,6 +82,7 @@
 
     <div class="escenario3d">
         <div class="presentacion">
+            
             <section class="portada" id="portada">
                 <img src="dibujo 0.jpg" class="imagen-portada">
                 <h1>Detalle Especial</h1>
@@ -149,6 +134,7 @@
                 <img src="dibujo 1.jpg" class="imagen-boceto">
                 <div class="esquina-pasar" onclick="pasarPagina2()">→</div>
             </section>
+
         </div>
     </div>
 
@@ -158,8 +144,11 @@
         function abrirPresentacion() {
             const portada = document.getElementById('portada');
             const audio = document.getElementById('musicaFondo');
+            
             portada.classList.add('esconder-portada');
-            audio.play().catch(error => console.log("Interacción necesaria para audio."));
+            
+            // Intentar reproducir música inmediatamente
+            audio.play().catch(error => console.log("Se requiere interacción del usuario para reproducir audio."));
         }
 
         const capa1 = document.getElementById('capa1');
